@@ -81,7 +81,7 @@ input {
 <body>
 <div>
   <h1>Find password<span>이메일을 입력하세요.</span></h1>
-  <form id="abc">
+  <form id="form" method="post">
      <p>
       <label for="password">Your password</label>
       <input type="text" value=""  id="EmCheck" class="EmCheck" placeholder="Email을 입력해주세요.">
@@ -101,7 +101,7 @@ input {
 	<script src="https://cdn.jsdelivr.net/sweetalert2/6.3.0/sweetalert2.min.js"></script>
 <script type="text/javascript">
 $('#try').on('click', function(){
-		var EmCheck = $("#EmCheck").val();  	 
+           	      	 
 		
 	});
 </script>

@@ -44,16 +44,12 @@ public class EmailController {
 	public @ResponseBody Boolean findPwd(String EmCheck, HttpSession session) throws Exception{
 		System.out.println("여긴 이메일비밀번호 찾아주는곳");
 		
-		String sender = "pickyoutest_01@gmail.com";
+		String sender = "pickyoutest01@gmail.com";
 		String receiver = EmCheck;
 		String subject ="PICK! 비밀번호발송.";
 		String str = ((int)(Math.random() * 8999)+1000)+"";
 			
 		System.out.println("이메일 패스워드:"+str);
-		
-		
-		
-		
 		
 		String content = "<h2 style='color:red'>"+str+"</h2>";
 		content+= " 보안을 위해 비밀번호를 수정해주십시오.";
@@ -62,7 +58,7 @@ public class EmailController {
 		//SMTP 서버의 계정 설정
 		//Naver와 연결할 경우 네이버 아이디 지정
 		//Google과 연결할 경우 본인의 Gmail 주소
-		p.put("mail.smtp.user", "pickyoutest_01@gmail.com");
+		p.put("mail.smtp.user", "pickyoutest01@gmail.com");
 
 		//SMTP 서버 정보 설정
 		//네이버일 경우 smtp.naver.com
@@ -99,6 +95,7 @@ public class EmailController {
 		      
 		  // 메일의 내용을 담기 위한 객체
 		  MimeMessage msg = new MimeMessage(ses);
+		  System.out.println("=================msg  :  " + msg);
 
 		  // 제목 설정
 		  msg.setSubject(subject);

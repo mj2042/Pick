@@ -79,7 +79,7 @@ public class UserController {
 		System.out.println("UserController Default Constructor");
 	}
 
-	/* �떒�닚 main View 濡� �씠�룞 */
+	/* 占쎈뼊占쎈떄 main View 嚥∽옙 占쎌뵠占쎈짗 */
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String mainView(Model model,HttpSession session) throws Exception {
 
@@ -89,11 +89,10 @@ public class UserController {
 		List<Vote> voteList = voteService.getVoteList();
 		model.addAttribute("voteList", voteList);
 		
-		
 		return "forward:/main/main.jsp";
 	}
 
-	/* �떒�닚 Login View 濡� �씠�룞 */
+	/* 占쎈뼊占쎈떄 Login View 嚥∽옙 占쎌뵠占쎈짗 */
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login() {
 
@@ -101,7 +100,7 @@ public class UserController {
 		return "redirect:/loginAndSignUp/loginAndSignUpView.jsp";
 	}
 
-	/* ID ,Password 泥댄겕�썑 寃곌낵 由ы꽩, �꽭�뀡 ���옣 */
+	/* ID ,Password 筌ｋ똾寃뺧옙�뜎 野껉퀗�궢 �뵳�뗪쉘, 占쎄쉭占쎈�� 占쏙옙占쎌삢 */
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> login(@RequestBody User user, HttpSession session) throws Exception {
 
@@ -110,7 +109,7 @@ public class UserController {
 		Map<String, Object> loginCheckMap = userService.loginUser(user);
 		String loginCheck = (String) loginCheckMap.get("loginCheck");
 
-		/* 濡쒓렇�씤 �꽦怨듭떆 Session�뿉 User �젙蹂� Add */
+		/* 嚥≪뮄�젃占쎌뵥 占쎄쉐�⑤벊�뻻 Session占쎈퓠 User 占쎌젟癰귨옙 Add */
 		if (loginCheck.equals("success")) {
 			session.setAttribute("user", loginCheckMap.get("user"));
 		}
@@ -120,14 +119,14 @@ public class UserController {
 
 	}
 
-	/* 濡쒓렇�씤 �꽦怨� �썑 Main View 濡� �씠�룞 */
+	/* 嚥≪뮄�젃占쎌뵥 占쎄쉐�⑨옙 占쎌뜎 Main View 嚥∽옙 占쎌뵠占쎈짗 */
 	@RequestMapping(value = "loginSuccess", method = RequestMethod.GET)
 	public String loginSuccess() throws Exception {
 		System.out.println("loginSuccess - GET");
 		return "forward:/user/main";
 	}
 
-	/* 濡쒓렇�븘�썐 */
+	/* 嚥≪뮄�젃占쎈툡占쎌뜍 */
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
 		System.out.println("logout - GET");
@@ -135,7 +134,7 @@ public class UserController {
 		return "redirect:/user/login";
 	}
 	
-	/* �땳�꽕�엫 以묐났 泥댄겕 */
+	/* 占쎈빏占쎄퐬占쎌뿫 餓λ쵎�궗 筌ｋ똾寃� */
 
 	@RequestMapping(value = "checkNickNameDuplication/{userName}", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> checkNickNameDuplication(@PathVariable("userName") String userName, HttpSession sessionPa)
@@ -155,7 +154,7 @@ public class UserController {
 	}
 	
 
-	/* Email 以묐났 泥댄겕 */
+	/* Email 餓λ쵎�궗 筌ｋ똾寃� */
 
 	@RequestMapping(value = "checkDuplication", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> checkDuplication(@RequestBody User user, HttpSession session)
@@ -169,7 +168,7 @@ public class UserController {
 		if (dbUser != null) {
 			result.put("isDuplicated", true);
 		} else {
-			// 以묐났�씠 �븘�땺寃쎌슦 session�뿉 id,password �젙蹂� ���옣
+			// 餓λ쵎�궗占쎌뵠 占쎈툡占쎈빜野껋럩�뒭 session占쎈퓠 id,password 占쎌젟癰귨옙 占쏙옙占쎌삢
 			session.setAttribute("user", user);
 			result.put("isDuplicated", false);
 		}
@@ -179,7 +178,7 @@ public class UserController {
 
 
 
-	/* �긽�꽭�젙蹂� �꽑�깮 酉� 由ы꽩 */
+	/* 占쎄맒占쎄쉭占쎌젟癰귨옙 占쎄퐨占쎄문 �뀎占� �뵳�뗪쉘 */
 	@RequestMapping(value = "getDetailInfomationSelectView", method = RequestMethod.GET)
 	public String getDetailInfomationSelectView(Model model) throws Exception {
 		System.out.println("getDetailInfomationSelectView - GET");
@@ -193,7 +192,7 @@ public class UserController {
 	
 	
 
-	/* �쉶�썝 �벑濡� */
+	/* 占쎌돳占쎌뜚 占쎈쾻嚥∽옙 */
 	@RequestMapping(value = "addUser", method = RequestMethod.POST)
 	public String addUser(@RequestParam("interestList") List<Integer> interestList,
 			@RequestParam("userAge") String userAge, @RequestParam("userGender") String userGender, @RequestParam("userName") String userName,HttpSession session)
@@ -219,7 +218,7 @@ public class UserController {
 		return "redirect:/user/main";
 	}
 
-	/* �굹�쓽 �젙蹂� 蹂닿린 */
+	/* 占쎄돌占쎌벥 占쎌젟癰귨옙 癰귣떯由� */
 	@RequestMapping(value = "getAccount", method = RequestMethod.GET)
 	public String getAccount(HttpSession session, Model model) throws Exception {
 		System.out.println("getAccount- GET");
@@ -235,7 +234,7 @@ public class UserController {
 
 	}
 
-	/* 愿�由ъ옄 -> �쉶�썝 �젙蹂� 蹂닿린 */
+	/* �꽴占썹뵳�딆쁽 -> 占쎌돳占쎌뜚 占쎌젟癰귨옙 癰귣떯由� */
 	@RequestMapping(value = "getUser/{userNo}", method = RequestMethod.GET)
 	public String getUser(@PathVariable("userNo") int userNo, Model model) throws Exception {
 		System.out.println("getUser- GET");
@@ -251,16 +250,16 @@ public class UserController {
 
 	}
 
-	/* �쉶�썝 �젙蹂� �닔�젙 */
+	/* 占쎌돳占쎌뜚 占쎌젟癰귨옙 占쎈땾占쎌젟 */
 	/*
-	 * 硫붿꽌�뱶�뿉 @ResponseBody Annotation�씠 �릺�뼱 �엳�쑝硫� return�릺�뒗 媛믪� View瑜� �넻�빐�꽌 異쒕젰�릺�뒗 寃껋씠 �븘�땲�씪
-	 * HTTP Response Body�뿉 吏곸젒�벐�뿬吏�寃� �맂�떎.
+	 * 筌롫뗄苑뚳옙諭띰옙肉� @ResponseBody Annotation占쎌뵠 占쎈┷占쎈선 占쎌뿳占쎌몵筌롳옙 return占쎈┷占쎈뮉 揶쏅�わ옙 View�몴占� 占쎈꽰占쎈퉸占쎄퐣 �빊�뮆�젾占쎈┷占쎈뮉 野껉퍔�뵠 占쎈툡占쎈빍占쎌뵬
+	 * HTTP Response Body占쎈퓠 筌욊낯�젔占쎈쾺占쎈연筌욑옙野껓옙 占쎈쭆占쎈뼄.
 	 */
 	/*
-	 * @ResponseBody�뒗 �겢�씪�씠�뼵�슂泥��쓣 �꽌踰꾩뿉�꽌 泥섎━ �썑 硫붿냼�뱶媛� 由ы꽩�븯�뒗 �삤釉뚯젥�듃瑜� messageConverters瑜� �넻�빐
-	 * json �삎�깭濡� 蹂��솚�븯�뿬 由ы꽩�빐二쇰뒗 �뿭�솢�쓣 �븳�떎.
+	 * @ResponseBody占쎈뮉 占쎄깻占쎌뵬占쎌뵠占쎈섧占쎌뒄筌ｏ옙占쎌뱽 占쎄퐣甕곌쑴肉됵옙苑� 筌ｌ꼶�봺 占쎌뜎 筌롫뗄�꺖占쎈굡揶쏉옙 �뵳�뗪쉘占쎈릭占쎈뮉 占쎌궎�뇡�슣�젰占쎈뱜�몴占� messageConverters�몴占� 占쎈꽰占쎈퉸
+	 * json 占쎌굨占쎄묶嚥∽옙 癰귨옙占쎌넎占쎈릭占쎈연 �뵳�뗪쉘占쎈퉸雅뚯눖�뮉 占쎈열占쎌넞占쎌뱽 占쎈립占쎈뼄.
 	 */
-	/* passwordwordConfirm�씠�씪�뒗 �븘�뱶媛� user�뿉 �뾾�뒗�뜲 �궇�졇�뜑�땲 bad Request..�궫吏� */
+	/* passwordwordConfirm占쎌뵠占쎌뵬占쎈뮉 占쎈툡占쎈굡揶쏉옙 user占쎈퓠 占쎈씨占쎈뮉占쎈쑓 占쎄텊占쎌죬占쎈쐭占쎈빍 bad Request..占쎄땜筌욑옙 */
 
 	@RequestMapping(value = "updateUser", method = RequestMethod.POST)
 	public @ResponseBody User updateUser(@ModelAttribute User user, @RequestParam List<Integer> formInterestList,
@@ -268,7 +267,7 @@ public class UserController {
 		
 		
 		System.out.println("updateUser- POST");
-		/*�꽌踰� �씠誘몄� ���옣 寃쎈줈*/
+		/*占쎄퐣甕곤옙 占쎌뵠沃섎챷占� 占쏙옙占쎌삢 野껋럥以�*/
 		String profileOriginalImageUploadPathOnServer = session.getServletContext().getRealPath("/image/profile/original");
 		String profileThumbnailImageUploadPathOnServer = session.getServletContext().getRealPath("/image/profile/thumbnail");
 		
@@ -291,10 +290,10 @@ public class UserController {
 			 randomFileName = UUID.randomUUID().toString().replace("-", "")+ 
 						profileImage.getOriginalFilename().toLowerCase();
 			 
-			/*�삤由ъ��꼸 �씠誘몄��� �뜽�꽕�씪 �씠誘몄� 寃쎈줈(濡쒖뺄) */
+			/*占쎌궎�뵳�딉옙占쎄섯 占쎌뵠沃섎챷占쏙옙占� 占쎈쑞占쎄퐬占쎌뵬 占쎌뵠沃섎챷占� 野껋럥以�(嚥≪뮇類�) */
 			//File originalFile = new File(profileOriginalImageUploadPath, randomFileName);
 			//File thumbnailFile = new File(profileThumbnailImageUploadPath, randomFileName);
-			/*   �꽌踰� */
+			/*   占쎄퐣甕곤옙 */
 			File originalFile = new File(profileOriginalImageUploadPathOnServer, randomFileName);
 			File thumbnailFile = new File(profileThumbnailImageUploadPathOnServer, randomFileName);
 			
@@ -302,14 +301,14 @@ public class UserController {
 			
 			try {
 				profileImage.transferTo(originalFile);
-				/*�꽱�꽣瑜� 湲곗��쑝濡� 80,80�쑝濡� �옄瑜몃떎. */
+				/*占쎄쉽占쎄숲�몴占� 疫꿸퀣占쏙옙�몵嚥∽옙 80,80占쎌몵嚥∽옙 占쎌쁽�몴紐껊뼄. */
 				Thumbnails.of(originalFile).crop(Positions.CENTER).imageType(BufferedImage.TYPE_INT_ARGB).size(80, 80).toFile(thumbnailFile);
 
 			} catch (IllegalStateException | IOException e) {
 				throw new RuntimeException(e.getMessage(), e);
 			}
 
-			// �꽆�뼱�삩 �씠誘몄�媛� �엳�쓣寃쎌슦留� 蹂�寃�
+			// 占쎄퐜占쎈선占쎌궔 占쎌뵠沃섎챷占썲첎占� 占쎌뿳占쎌뱽野껋럩�뒭筌랃옙 癰귨옙野껓옙
 			sessionUser.setUserPhoto(randomFileName);
 
 		}
@@ -326,7 +325,7 @@ public class UserController {
 		return sessionUser;
 	}
 
-	/* 愿�由ъ옄 �럹�씠吏� 酉� 由ы꽩 */
+	/* �꽴占썹뵳�딆쁽 占쎈읂占쎌뵠筌욑옙 �뀎占� �뵳�뗪쉘 */
 	@RequestMapping(value = "getAdminPageView/{path}", method = RequestMethod.GET)
 	public String getAdminPageView(@PathVariable("path") String path, Model model) throws Exception {
 
@@ -364,19 +363,19 @@ public class UserController {
 		model.addAttribute("userList", userList);
 		model.addAttribute("interestList", interestList);
 		model.addAttribute("voteList", voteList);
-		/* path�뒗 AdminPage�뿉�꽌 �뼱�뒓 �꺆�쓣 蹂댁뿬以꾩� 寃곗젙�븿 user,category,pick */
+		/* path占쎈뮉 AdminPage占쎈퓠占쎄퐣 占쎈선占쎈뮄 占쎄틙占쎌뱽 癰귣똻肉т빳袁⑼옙 野껉퀣�젟占쎈맙 user,category,pick */
 		model.addAttribute("path", path);
 
 		return "forward:/adminPage/adminPage.jsp";
 	}
 
-	/* 移댄뀒怨좊━(Interest or Category) 異붽� */
+	/* 燁삳똾�믤�⑥쥓�봺(Interest or Category) �빊遺쏙옙 */
 	@RequestMapping(value = "addInterest", method = RequestMethod.POST)
 	public @ResponseBody Interest addInterest(@ModelAttribute Interest interest, MultipartFile interestImage,HttpSession session)
 			throws Exception {
 		System.out.println("addInterest POST");
 
-		/* Interest 以묐났 泥댄겕 */
+		/* Interest 餓λ쵎�궗 筌ｋ똾寃� */
 		if (interestService.getInterestByContent(interest.getContent()) != null) {
 			return new Interest(0);
 		}
@@ -393,11 +392,11 @@ public class UserController {
 			
 			randomFileName= UUID.randomUUID().toString().replace("-", "")+ interestImage.getOriginalFilename().toLowerCase();
 			
-			/*�삤由ъ��꼸 �씠誘몄��� �뜽�꽕�씪 �씠誘몄� 寃쎈줈(濡쒖뺄) */
+			/*占쎌궎�뵳�딉옙占쎄섯 占쎌뵠沃섎챷占쏙옙占� 占쎈쑞占쎄퐬占쎌뵬 占쎌뵠沃섎챷占� 野껋럥以�(嚥≪뮇類�) */
 			//File originalFile = new File(interestOriginalImageUploadPath, randomFileName);
 			//File thumbnailFile = new File(interestThumbnailImageUploadPath, randomFileName);
 			
-			/*�삤由ъ��꼸 �씠誘몄��� �뜽�꽕�씪 �씠誘몄� 寃쎈줈(�꽌踰�) */
+			/*占쎌궎�뵳�딉옙占쎄섯 占쎌뵠沃섎챷占쏙옙占� 占쎈쑞占쎄퐬占쎌뵬 占쎌뵠沃섎챷占� 野껋럥以�(占쎄퐣甕곤옙) */
 			File originalFile = new File(interestOriginalImageUploadPathOnServer, randomFileName);
 			File thumbnailFile = new File(interestThumbnailImageUploadPathOnServer, randomFileName);
 			
@@ -415,11 +414,11 @@ public class UserController {
 		interestService.addInterest(interest);
 		interest = interestService.getInterestByContent(interest.getContent());
 
-		// 以묐났�븞�릺�뿀�쓣�뵪 content 由ы꽩
+		// 餓λ쵎�궗占쎈툧占쎈┷占쎈�占쎌뱽占쎈뎁 content �뵳�뗪쉘
 		return interest;
 	}
 
-	/* �븘�꽣留� 酉� 由ы꽩 */
+	/* 占쎈툡占쎄숲筌랃옙 �뀎占� �뵳�뗪쉘 */
 	@RequestMapping(value = "getFilter", method = RequestMethod.GET)
 	public String getFilter(Model model) throws Exception {
 		System.out.println("getFilter GET");
@@ -432,7 +431,7 @@ public class UserController {
 	}
 
 
-	/* Email  泥댄겕 For Facebook*/
+	/* Email  筌ｋ똾寃� For Facebook*/
 
 	@RequestMapping(value = "checkDuplicationForFaceBook", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> checkDuplicationForFaceBook(@ModelAttribute User user,HttpSession session)
@@ -456,34 +455,34 @@ public class UserController {
 	
 	@RequestMapping( value="findPwd", method=RequestMethod.POST )
 	public @ResponseBody Boolean findPwd(String EmCheck, HttpSession session) throws Exception{
-		System.out.println("여긴 이메일비밀번호 찾아주는곳");
+		System.out.println("�뿬湲� �씠硫붿씪鍮꾨�踰덊샇 李얠븘二쇰뒗怨�");
 		
 		String sender = "pickyoutest_01@gmail.com";
 		String receiver = EmCheck;
-		String subject ="PICK! 비밀번호발송.";
+		String subject ="PICK! 鍮꾨�踰덊샇諛쒖넚.";
 		String str = ((int)(Math.random() * 8999)+1000)+"";
 			
-		System.out.println("이메일 패스워드:"+str);
+		System.out.println("�씠硫붿씪 �뙣�뒪�썙�뱶:"+str);
 		
 		
 		
 		
 		
 		String content = "<h2 style='color:red'>"+str+"</h2>";
-		content+= " 보안을 위해 비밀번호를 수정해주십시오.";
+		content+= " 蹂댁븞�쓣 �쐞�빐 鍮꾨�踰덊샇瑜� �닔�젙�빐二쇱떗�떆�삤.";
 		Properties p = new Properties();
 
-		//SMTP 서버의 계정 설정
-		//Naver와 연결할 경우 네이버 아이디 지정
-		//Google과 연결할 경우 본인의 Gmail 주소
+		//SMTP �꽌踰꾩쓽 怨꾩젙 �꽕�젙
+		//Naver�� �뿰寃고븷 寃쎌슦 �꽕�씠踰� �븘�씠�뵒 吏��젙
+		//Google怨� �뿰寃고븷 寃쎌슦 蹂몄씤�쓽 Gmail 二쇱냼
 		p.put("mail.smtp.user", "pickyoutest_01@gmail.com");
 
-		//SMTP 서버 정보 설정
-		//네이버일 경우 smtp.naver.com
-		//Google일 경우 smtp.gmail.com
+		//SMTP �꽌踰� �젙蹂� �꽕�젙
+		//�꽕�씠踰꾩씪 寃쎌슦 smtp.naver.com
+		//Google�씪 寃쎌슦 smtp.gmail.com
 		p.put("mail.smtp.host", "smtp.gmail.com");
 		 
-		//아래 정보는 네이버와 구글이 동일하므로 수정하지 마세요.
+		//�븘�옒 �젙蹂대뒗 �꽕�씠踰꾩� 援ш��씠 �룞�씪�븯誘�濡� �닔�젙�븯吏� 留덉꽭�슂.
 		p.put("mail.smtp.port", "465");
 		p.put("mail.smtp.starttls.enable", "true");
 		p.put("mail.smtp.auth", "true");
@@ -497,38 +496,38 @@ public class UserController {
 		  Authenticator auth = new SMTPAuthenticator();
 		  Session ses = Session.getInstance(p, auth);
 		  User user =new User();
-			//디비갔다왔는데 null일때
+			//�뵒鍮꾧컮�떎�솕�뒗�뜲 null�씪�븣
 		  user=userService.getUserByUserEmail(receiver);
 		   if(user==null ||user.equals("")){
-			   System.out.println("이메일값 null일때");
+			   System.out.println("�씠硫붿씪媛� null�씪�븣");
 			  return false;
 		  }
 		   
 		   	user.setUserPassword(str);
-		   	System.out.println("user값:"+user);
+		   	System.out.println("user媛�:"+user);
 		   	userService.updateUser(user);
 		   
-		  // 메일을 전송할 때 상세한 상황을 콘솔에 출력한다.
+		  // 硫붿씪�쓣 �쟾�넚�븷 �븣 �긽�꽭�븳 �긽�솴�쓣 肄섏넄�뿉 異쒕젰�븳�떎.
 		  ses.setDebug(true);
 		      
-		  // 메일의 내용을 담기 위한 객체
+		  // 硫붿씪�쓽 �궡�슜�쓣 �떞湲� �쐞�븳 媛앹껜
 		  MimeMessage msg = new MimeMessage(ses);
 
-		  // 제목 설정
+		  // �젣紐� �꽕�젙
 		  msg.setSubject(subject);
 		      
-		  // 보내는 사람의 메일주소
+		  // 蹂대궡�뒗 �궗�엺�쓽 硫붿씪二쇱냼
 		  Address fromAddr = new InternetAddress(sender);
 		  msg.setFrom(fromAddr);
 		      
-		  // 받는 사람의 메일주소
+		  // 諛쏅뒗 �궗�엺�쓽 硫붿씪二쇱냼
 		  Address toAddr = new InternetAddress(receiver);
 		  msg.addRecipient(Message.RecipientType.TO, toAddr);
 		      
-		  // 메시지 본문의 내용과 형식, 캐릭터 셋 설정
+		  // 硫붿떆吏� 蹂몃Ц�쓽 �궡�슜怨� �삎�떇, 罹먮┃�꽣 �뀑 �꽕�젙
 		  msg.setContent(content, "text/html;charset=UTF-8");
 		      
-		  // 발송하기
+		  // 諛쒖넚�븯湲�
 		  Transport.send(msg);
 		
 		

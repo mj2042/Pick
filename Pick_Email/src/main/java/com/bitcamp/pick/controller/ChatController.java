@@ -79,7 +79,7 @@ public class ChatController {
 		return "redirect:http://52.78.201.215:3000/chatServer/" + appUserMail;
 	}
 
-	// node 채팅서버에서 요청한 정보를 return 하기 위한 method
+	// node 梨꾪똿�꽌踰꾩뿉�꽌 �슂泥��븳 �젙蹂대�� return �븯湲� �쐞�븳 method
 	@RequestMapping(value = "userJsonObject/{userKey:.+}", method = RequestMethod.GET)
 	public ResponseEntity<String> userJsonObject(@PathVariable("userKey") String userKey, HttpSession session)
 			throws Exception {
@@ -115,7 +115,7 @@ public class ChatController {
 		return new ResponseEntity<>(voteInfo.toJSONString(), headers, HttpStatus.OK);
 	}
 
-	/* 채팅창에서 요청한 나의 정보 보기 */
+	/* 梨꾪똿李쎌뿉�꽌 �슂泥��븳 �굹�쓽 �젙蹂� 蹂닿린 */
 	@RequestMapping(value = "getAccountFromChat/{userMail:.+}", method = RequestMethod.GET)
 	public String getAccountBychat(@PathVariable("userMail") String userMail, Model model, HttpSession session)
 			throws Exception {
@@ -130,7 +130,7 @@ public class ChatController {
 		return "forward:/account/accountView.jsp";
 	}
 
-	/* 투표 하기 뷰 리턴 */
+	/* �닾�몴 �븯湲� 酉� 由ы꽩 */
 	@RequestMapping(value = "getVoteFromChat/{voteNo}", method = RequestMethod.GET)
 	public String getVote(@PathVariable("voteNo") int voteNo, Model model, HttpSession session) throws Exception {
 		System.out.println("getVoteFromChat-GET");

@@ -89,7 +89,7 @@ input {
 		<div id="resultDIV">
 	  <!-- Ajax 로딩시 이미지 출력 영역 -->
 			  <div id="ajax_indicator" style="display:none">
-			   <p style="text-align:center; padding:16px 0 0 0; left:50%; top:10%; position:absolute;"><img src="../front/images/ajax-loader.gif" /></p>
+			   <p style="text-align:center; padding:16px 0 0 0; left:50%; top:10%; position:absolute;"><img src="../image/ajax-loader.gif" /></p>
 			  </div>﻿
 			</div>
 		</div>      
@@ -98,30 +98,27 @@ input {
 </div>
 <!-- Script -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/sweetalert2/6.3.0/sweetalert2.min.js"></script>
+  <script src="../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 <script type="text/javascript">
 $('#try').on('click', function(){
 		var EmCheck = $("#EmCheck").val();  
-		
-		$('#contents').empty().html('<img src="../front/images/ajax-load.gif" />');
-		/* alert("data"); */
+		//$('#contents').empty().html('<img src="../image/profile/original/2c034eee0b034c27a969459688c8ac35hydrangeas.jpg"/>');
 		alert(EmCheck);
 		$.ajax({
 		    type: "post",
 		    global: true,
 		    async: true,
-		    url:"/user/findPwd",
+		    url:"/email/findPwd",
 		    dataType : "html",
 		    timeout: 30000,
 		    cache: true,
 		    data: {"EmCheck":EmCheck},
 		    contentType : "application/x-www-form-urlencoded; charset=utf-8",
-		  /*   error: function (jqXHR, textStatus, errorThrown) {
+		     error: function (jqXHR, textStatus, errorThrown) {
 		        swal(errorThrown);
 		        swal(textStatus);
-		    }, */
+		    },   
 		    success: function (data, textStatus, jqXHR) {
-		       	
 		    	if(data=='true'){
 		        	alert("패스워드를 메일로 발송하였습니다.");
 		        }else{
@@ -130,7 +127,6 @@ $('#try').on('click', function(){
 	  	    },
 		    beforeSend: function (jqXHR, settings) {
 		    	 $('#ajax_indicator').show().fadeIn('fast'); 
-
 		    },
 		    complete: function (jqXHR, settings) {
 		    	$('#ajax_indicator').fadeOut();

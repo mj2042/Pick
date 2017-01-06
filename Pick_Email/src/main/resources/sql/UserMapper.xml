@@ -65,6 +65,7 @@
 		SET USER_NAME=#{userName:VARCHAR},
 			USER_GEND=#{userGender:VARCHAR},
 			USER_PHOT=#{userPhoto:VARCHAR},
+			USER_PWD=#{userPassword:VARCHAR},
 			USER_AGE=#{userAge:VARCHAR}
 		WHERE USER_NO=#{userNo}
 	</update>
