@@ -50,9 +50,9 @@ public class VoteServiceImpl implements VoteService{
 		 
 	      voteDao.addVote(vote);
 	     
-	      VoteAuthority voteA​uthority = vote.getVoteAuthority();
-	      voteA​uthority.setVoteNo(vote.getVoteNo());
-	      voteAuthorityDao.addVoteAuthority(voteA​uthority);
+	      VoteAuthority voteAuthority = vote.getVoteAuthority();
+	      voteAuthority.setVoteNo(vote.getVoteNo());
+	      voteAuthorityDao.addVoteAuthority(voteAuthority);
 	}
 	
 	public Vote getVote(int voteNo) throws Exception {

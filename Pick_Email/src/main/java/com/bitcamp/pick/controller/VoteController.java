@@ -75,7 +75,7 @@ public class VoteController {
 		System.out.println("VoteController Default Constructor");
 	}
 
-	/* 투표 등록 페이지 리턴 메소드 */
+	/* �닾�몴 �벑濡� �럹�씠吏� 由ы꽩 硫붿냼�뱶 */
 	@RequestMapping(value = "addVote", method = RequestMethod.GET)
 	public String addVote(Model model) throws Exception {
 		System.out.println("addVote-GET");
@@ -87,11 +87,11 @@ public class VoteController {
 		return "forward:/voteRegistration/voteRegistration.jsp";
 	}
 
-	/* 투표 등록 */
+	/* �닾�몴 �벑濡� */
 	@RequestMapping(value = "addVote", method = RequestMethod.POST)
 	public @ResponseBody Vote addVote(@ModelAttribute("vote") Vote vote,
 			MultipartHttpServletRequest multipartHttpServletRequest, Model model, HttpSession session,
-			@ModelAttribute VoteAuthority voteA​uthority) throws Exception {
+			@ModelAttribute VoteAuthority voteAuthority) throws Exception {
 		System.out.println("addVote-POST");
 	
 		String voteOriginalImageUploadPathOnServer = session.getServletContext().getRealPath("/image/vote/original");
@@ -100,11 +100,11 @@ public class VoteController {
 		
 		
 		
-		vote.setVoteAuthority(voteA​uthority);
+		vote.setVoteAuthority(voteAuthority);
 		vote.setUserNo(((User) session.getAttribute("user")).getUserNo());
 		voteService.addVote(vote);
 		System.out.println("Vote Information :" + vote);
-		System.out.println("Vote A​uthority :" + voteA​uthority);
+		System.out.println("Vote A�땥thority :" + voteAuthority);
 		/* VERSUS */
 		if (vote.getVoteType().equals("VERSUS")) {
 			System.out.println("Vote Type is VERSUS");
@@ -123,12 +123,12 @@ public class VoteController {
 
 			String leftRandomPhotoName = UUID.randomUUID().toString().replace("-", "")
 					+ leftPhoto.getOriginalFilename().toLowerCase();
-			/*로컬*/
+			/*濡쒖뺄*/
 			//File originalLeftFile = new File(voteOriginalImageUploadPath, leftRandomPhotoName);
 			//File thumbnaiLeftlFile = new File(voteThumbnailImageUploadPath, leftRandomPhotoName);
 			
 			
-			/*서버*/
+			/*�꽌踰�*/
 			File originalLeftFile = new File(voteOriginalImageUploadPathOnServer, leftRandomPhotoName);
 			File thumbnaiLeftlFile = new File(voteThumbnailImageUploadPathOnServer, leftRandomPhotoName);
 
@@ -140,13 +140,13 @@ public class VoteController {
 			String rightRandomPhotoName = UUID.randomUUID().toString().replace("-", "")
 					+ rightPhoto.getOriginalFilename().toLowerCase();
 			
-			/* 로컬 */
+			/* 濡쒖뺄 */
 			//File originalRightFile = new File(voteOriginalImageUploadPath, rightRandomPhotoName);
 			//File thumbnaiRightlFile = new File(voteThumbnailImageUploadPath, rightRandomPhotoName);
 			
 			
 			
-			/* 서버 */
+			/* �꽌踰� */
 			File originalRightFile = new File(voteOriginalImageUploadPathOnServer, rightRandomPhotoName);
 			File thumbnaiRightlFile = new File(voteThumbnailImageUploadPathOnServer, rightRandomPhotoName);
 
@@ -161,7 +161,7 @@ public class VoteController {
 			choiceService.addChoice(rightChoice);
 
 		} else {/* MULTI */
-			// 선택지 갯수
+			// �꽑�깮吏� 媛��닔
 			System.out.println("Vote Type is MULTI");
 			int choiceCount = Integer.parseInt(multipartHttpServletRequest.getParameter("choiceCount"));
 			Map<String, MultipartFile> map = multipartHttpServletRequest.getFileMap();
@@ -182,10 +182,10 @@ public class VoteController {
 
 				randomPhotoName = UUID.randomUUID().toString().replace("-", "")
 						+ photo.getOriginalFilename().toLowerCase();
-				/*로컬 */
+				/*濡쒖뺄 */
 				//File originalFile = new File(voteOriginalImageUploadPath, randomPhotoName);
 				//File thumbnailFile = new File(voteThumbnailImageUploadPath, randomPhotoName);
-				/*서버 */
+				/*�꽌踰� */
 				File originalFile = new File(voteOriginalImageUploadPathOnServer, randomPhotoName);
 				File thumbnailFile = new File(voteThumbnailImageUploadPathOnServer, randomPhotoName);
 				
@@ -205,13 +205,13 @@ public class VoteController {
 		return vote;
 
 	}
-	/*투표 하기 뷰 리턴 */
+	/*�닾�몴 �븯湲� 酉� 由ы꽩 */
 	@RequestMapping(value = "getVote/{voteNo}", method = RequestMethod.GET)
 	public String getVote(@PathVariable("voteNo") int voteNo, Model model, HttpSession session) throws Exception {
 		System.out.println("getVote-GET");
 		Vote vote = voteService.getVote(voteNo);
 		User user = (User) session.getAttribute("user");
-		/*공유를 통하여 접근 하였을 경우*/
+		/*怨듭쑀瑜� �넻�븯�뿬 �젒洹� �븯���쓣 寃쎌슦*/
 		if(user==null){
 			session.setAttribute("fromGetVote","true");
 			session.setAttribute("fromGetVoteNo",voteNo);
@@ -227,7 +227,7 @@ public class VoteController {
 		}
 
 	}
-	/*투표 하기  VERSUS  */
+	/*�닾�몴 �븯湲�  VERSUS  */
 	@RequestMapping(value = "voteVersus", method = RequestMethod.POST)
 	public @ResponseBody String voteVersus(@RequestParam int choiceNo, HttpSession session) throws Exception {
 		System.out.println("voteVersus -POST");
@@ -240,7 +240,7 @@ public class VoteController {
 		List<Integer> userNoList = null;
 		String isParticipated = "false";
 		
-		/* 투표 참가 여부 판단  */
+		/* �닾�몴 李멸� �뿬遺� �뙋�떒  */
 		for (Choice choice : choiceList) {
 			userNoList = choiceService.getUserNoListByChoiceNo(choice.getChoiceNo());
 			for (int userNo : userNoList) {
@@ -261,7 +261,7 @@ public class VoteController {
 		return isParticipated;
 
 	}
-	/*투표 하기  MultiChoice  */
+	/*�닾�몴 �븯湲�  MultiChoice  */
 	@RequestMapping(value = "voteMultiChoice", method = RequestMethod.POST)
 	public @ResponseBody String voteMultiChoice(@RequestParam("choiceNo") List<Integer> choiceNoList,
 			HttpSession session) throws Exception {
@@ -275,7 +275,7 @@ public class VoteController {
 		String isParticipated = "false";
 
 		
-		/* 투표 참가 여부 판단  */
+		/* �닾�몴 李멸� �뿬遺� �뙋�떒  */
 		for (Choice choice : choiceList) {
 			userNoList = choiceService.getUserNoListByChoiceNo(choice.getChoiceNo());
 			for (int userNo : userNoList) {
@@ -299,7 +299,7 @@ public class VoteController {
 		return isParticipated;
 	}
 
-	/* 나의 투표 리스트 뷰 리턴 */
+	/* �굹�쓽 �닾�몴 由ъ뒪�듃 酉� 由ы꽩 */
 	@RequestMapping(value = "getVoteList", method = RequestMethod.GET)
 	public String getVoteList(Model model, HttpSession session) throws Exception {
 		System.out.println("getVoteList GET");
@@ -330,13 +330,13 @@ public class VoteController {
 		model.addAttribute("userEmailMapByUserNoMap", userEmailMapByUserNoMap);
 		model.addAttribute("userNameMapByUserNoMap", userNameMapByUserNoMap);
 		model.addAttribute("voteList", voteList);
-		/*내가 등록한 투표, 내가 참여한 투표 같은 뷰를 쓰기 위하여 타입 으로 판단*/
+		/*�궡媛� �벑濡앺븳 �닾�몴, �궡媛� 李몄뿬�븳 �닾�몴 媛숈� 酉곕�� �벐湲� �쐞�븯�뿬 ���엯 �쑝濡� �뙋�떒*/
 		model.addAttribute("type", "byOthers");
 		return "forward:/myPick/myPick.jsp";
 	}
 	
 	
-	/* 내가 등록한 투표 리스트 뷰 리턴 */
+	/* �궡媛� �벑濡앺븳 �닾�몴 由ъ뒪�듃 酉� 由ы꽩 */
 	@RequestMapping(value = "getMyVoteList", method = RequestMethod.GET)
 	public String getMyVoteList(Model model, HttpSession session) throws Exception {
 		System.out.println("getMyVoteList GET");
@@ -368,12 +368,12 @@ public class VoteController {
 		model.addAttribute("userEmailMapByUserNoMap", userEmailMapByUserNoMap);
 		model.addAttribute("userNameMapByUserNoMap", userNameMapByUserNoMap);
 		model.addAttribute("voteList", voteList);
-		/*내가 등록한 투표, 내가 참여한 투표 같은 뷰를 쓰기 위하여 타입 으로 판단*/
+		/*�궡媛� �벑濡앺븳 �닾�몴, �궡媛� 李몄뿬�븳 �닾�몴 媛숈� 酉곕�� �벐湲� �쐞�븯�뿬 ���엯 �쑝濡� �뙋�떒*/
 		model.addAttribute("type", "byMe");
 
 		return "forward:/myPick/myPick.jsp";
 	}
-	/* 결과  */
+	/* 寃곌낵  */
 	@RequestMapping(value = "getResult/{voteNo}", method = RequestMethod.GET)
 	public String getResult(@PathVariable("voteNo") int voteNo, Model model, HttpSession session) throws Exception {
 		System.out.println("getResult GET");
@@ -383,7 +383,7 @@ public class VoteController {
 		List<Choice> choiceList = vote.getChoiceList();
 		List<Comment> commentList = commentService.getCommentListByVoteNo(voteNo);
 		List<Object> mapList = new ArrayList<Object>();
-		/*댓글에 User 이미지 넣기 위함 */
+		/*�뙎湲��뿉 User �씠誘몄� �꽔湲� �쐞�븿 */
 		Map<Integer, String> userPhotoByCommentNoMap = new HashMap<Integer, String>();
 		Map<Integer, String> userNameByCommentNoMap = new HashMap<Integer, String>();
 		
@@ -392,7 +392,7 @@ public class VoteController {
 			userPhotoByCommentNoMap.put(comment.getCommentNo(), user.getUserPhoto());
 			userNameByCommentNoMap.put(comment.getCommentNo(), user.getUserName());
 		}
-		/*선택지별 연령대별 ,성별 데이터 종합 */
+		/*�꽑�깮吏�蹂� �뿰�졊��蹂� ,�꽦蹂� �뜲�씠�꽣 醫낇빀 */
 		for (Choice choice : choiceList) {
 
 			int s10 = 0;
@@ -458,13 +458,13 @@ public class VoteController {
 		else
 			return "forward:/result/resultMulti.jsp";
 	}
-	/*상단바 검색 */
+	/*�긽�떒諛� 寃��깋 */
 	@RequestMapping(value = "search/{word}", method = RequestMethod.GET)
 	public String search(@PathVariable("word") String word, Model model) throws Exception {
 		System.out.println("search -GET ");
 
 		List<Vote> voteList = voteService.search(word);
-		/* 검색 결과가 없을 경우 */
+		/* 寃��깋 寃곌낵媛� �뾾�쓣 寃쎌슦 */
 		if (voteList.size() == 0) {
 			return "forward:/user/main";
 		}
@@ -473,15 +473,15 @@ public class VoteController {
 
 		return "forward:/main/main.jsp";
 	}
-	/* 필터링 */
+	/* �븘�꽣留� */
 	@RequestMapping(value = "vote/filter", method = RequestMethod.POST)
-	public String filter(@ModelAttribute VoteAuthority voteA​uthority,
+	public String filter(@ModelAttribute VoteAuthority voteAuthority,
 			@RequestParam(value = "interestNoList", required = false) List<Integer> interestNoList, Model model)
 			throws Exception {
 		System.out.println("filter -POST");
 
 		Map<String, Object> filterMap = new HashMap<String, Object>();
-		filterMap.put("voteA​uthority", voteA​uthority);
+		filterMap.put("voteAuthority", voteAuthority);
 		List<Interest> interestList = new ArrayList<Interest>();
 			
 		if (interestNoList != null) {

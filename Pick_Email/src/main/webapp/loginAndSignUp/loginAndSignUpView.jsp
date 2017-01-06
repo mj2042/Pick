@@ -233,7 +233,6 @@ $("#fb_login_btn").on("click",function(){
 		}
 	
 	
-	
 		 $("#change_login_form").on("click", function() {
 			$(this).css("display", "none");
 			$(this).removeAttr("disabled");
