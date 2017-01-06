@@ -1,0 +1,251 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/*전체화면 */
+body {
+ font-family: 'Lato', sans-serif;
+ background-color: #ffffff;
+ line-height: 0.9;
+ font-size: 10px;
+
+
+}
+
+/*전체폼*/
+.form {
+ 
+  background:#ffffff;
+  width: 100%;
+  height: auto;
+/*   margin: 40px auto; */
+ /* border-radius: 4px;*/
+ /* box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3); */
+}
+
+#update_form{
+	padding:30px;
+
+
+	
+}
+
+#my {
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  text-align: center;
+  text-indent: 6px;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #ED2553;
+}
+
+#account{
+   font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center;
+  text-indent: 6px;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: #272727;   
+}
+
+#myaccount{
+    
+     
+}
+#profile{
+    
+}
+
+
+#information{
+    text-align: left;
+    font-size: 20px;
+    font-weight: 2px;
+    letter-spacing: 7px;
+    text-indent: 6px;*/
+}
+
+
+/*pickme button*/
+.button {
+  background: #ffffff;
+  font-size: 15px;
+  font-weight: 500px;
+  display: inline-block;
+  margin-bottom: -1px;
+  margin-top:50px;
+  padding: 5px 5px 5px;
+  cursor: pointer;
+  letter-spacing: 0;
+  border: 1px solid ;
+  text-indent: 6px;
+  letter-spacing: 7px;
+  border-radius: 2px;
+  padding: 12px 12px;
+    
+
+}
+.email{
+    font-size: 20px;
+}
+
+/* =======버튼호버======== */
+.button:hover, .button:focus {
+  background: #272727;
+	color:#ffffff
+}
+
+.button-block {
+ outline: 30;
+  outline-color: black;
+  display: block;
+  width: 300px;
+}
+/* ======= profile======== */
+*,
+*::after,
+*::before {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+}
+
+
+.preview {
+		display: block;
+		width: 80px;
+		height: 80px;
+		margin: 15px auto;
+		border: 2px solid #ED2553;
+		border-radius: 50%;
+		overflow: hidden;
+}
+
+.get_preview {
+		display: block !important;
+		width: 80px !important;
+		height: auto !important;
+		overflow: hidden !important;
+}
+
+.file-upload-wrapper {
+		position: relative;
+		z-index: 5;
+		display: block;
+		width: 100px;
+		height: 30px;
+		margin: 5px auto;
+  		  margin-bottom: 30px;
+}
+
+.file-upload-native,
+.file-upload-text {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block; 
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+		cursor: pointer;
+}
+
+.file-upload-native:focus,
+.file-upload-text:focus {
+		outline: none;
+}
+
+.file-upload-text {
+		z-index: 10;
+		padding: 5px 15px 8px;
+		overflow: hidden;
+		font-size: 14px;
+		line-height: 1.4;
+		cursor: pointer;
+		text-align: center;
+		letter-spacing: 1px;
+		text-overflow: ellipsis;
+		color: rgb(144, 162, 148);
+		border: 0;
+		background-color: transparent;
+}
+
+.file-upload-native {
+		z-index: 15;
+		opacity: 0;
+}
+/*====================================================================*/
+/* label color */
+   .input-field label {
+     color: #ED2553;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #ED2553;
+   }
+
+/* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #ED2553;
+     box-shadow: 0 1px 0 0 #ED2553;
+       
+}
+/* label underline focus color *  ===for password===*/
+   .input-field input[type=password]:focus {
+     border-bottom: 1px solid #ED2553;
+     box-shadow: 0 1px 0 0 #ED2553;
+}
+/* label focus color ===for password===  */
+   .input-field input[type=password]:focus + label {
+     color: #ED2553;
+              
+       
+}
+/* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #ED2553;
+   }
+ 
+ /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #ED2553;
+     box-shadow: 0 1px 0 0 #ED2553;
+   }
+/* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid #ED2553;
+     box-shadow: 0 1px 0 0 #ED2553;
+   }
+/* invalid color *  ===for password===*/
+   .input-field input[type=password].invalid {
+     border-bottom: 1px solid #ED2553;
+     box-shadow: 0 1px 0 0 #ED2553;
+   }
+
+
+.btn{
+    align-content: center;
+    background: #ED2553;
+   	padding-top: 20px;
+}
+
+.custom-nav{
+	background-color: #ED2553;
+
+}
+
+/* sweetalert custom */
+h2 {
+  font-size: 20px !important;
+
+}
+#goToChat_btn{
+	background-color: #ED2553;
+}

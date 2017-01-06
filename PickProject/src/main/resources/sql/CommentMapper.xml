@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ 					
+<mapper namespace="CommentMapper">
+
+	
+	<resultMap type="comment" id="commentSelectMap">
+		<result property="commentNo" column="COMT_NO" jdbcType="INTEGER"/>
+		<result property="voteNo" column="VOTE_NO" jdbcType="INTEGER"/>
+		<result property="userNo" column="USER_NO" jdbcType="INTEGER"/>
+		<result property="commentContent" column="COMT_CONT" jdbcType="VARCHAR"/>
+		<result property="regDate" column="REG_DATE" jdbcType="DATE"/>
+	</resultMap>
+	
+	<insert id="addComment" parameterType="comment"   useGeneratedKeys="true" keyProperty="commentNo" keyColumn="COMT_NO">
+		INSERT 
+		INTO COMT(USER_NO,COMT_CONT,VOTE_NO,REG_DATE)
+		VALUES (#{userNo:INTEGER},
+				#{commentContent:VARCHAR},
+				#{voteNo:INTEGER},
+				SYSDATE())	
+		<selectKey keyProperty="commentNo" resultType="Integer" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+				
+	</insert>
+	<select id="getComment" parameterType="integer" resultMap="commentSelectMap">
+		SELECT *
+		FROM COMT
+		WHERE COMT_NO=#{value}
+	</select>
+	<select id="getCommentListByVoteNo" parameterType="integer" resultMap="commentSelectMap">
+		SELECT *
+		FROM COMT
+		WHERE VOTE_NO=#{value}
+		ORDER BY COMT_NO
+	</select>
+	
+	
+	<delete id="deleteComment" parameterType="integer">
+			DELETE 
+			FROM COMT
+			WHERE COMT_NO = #{value}
+	</delete>
+	
+	
+</mapper>

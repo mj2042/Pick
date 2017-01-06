@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VoteAuthorityMapper">
+
+	<resultMap id="voteAuthoritySelectMap" type="voteAuthority">
+			<result property="voteAuthorityNo" column="AUTH_NO" jdbcType="INTEGER" />
+			<result property="voteNo" column="VOTE_NO" jdbcType="INTEGER" />
+			<result property="male" column="MALE" jdbcType="BOOLEAN" />
+			<result property="female" column="F_MALE" jdbcType="BOOLEAN" />
+			<result property="one" column="ONE" jdbcType="BOOLEAN" />
+			<result property="two" column="TWO" jdbcType="BOOLEAN" />
+			<result property="three" column="THRE" jdbcType="BOOLEAN" />
+			<result property="four" column="FOUR" jdbcType="BOOLEAN" />
+			<result property="five" column="FIVE" jdbcType="BOOLEAN" />
+			<result property="six" column="SIX" jdbcType="BOOLEAN" />
+	</resultMap>
+	
+	<insert id="addVoteAuthority" parameterType="voteAuthority" useGeneratedKeys="true" keyProperty="voteAuthorityNo" keyColumn="AUTH_NO">
+		INSERT
+		INTO VOTE_AUTH(VOTE_NO,MALE,F_MALE,ONE,TWO,THRE,FOUR,FIVE,SIX)
+		VALUES ( #{voteNo:INTEGER},
+				 #{male:VARCHAR},
+				 #{female:VARCHAR},
+				 #{one:BOOLEAN},
+				 #{two:BOOLEAN},
+				 #{three:BOOLEAN}, 
+				 #{four:BOOLEAN},
+				 #{five:BOOLEAN},
+				 #{six:BOOLEAN} )
+		<selectKey keyProperty="voteAuthorityNo" resultType="Integer" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="getVoteAuthority" parameterType="int" resultMap="voteAuthoritySelectMap">
+		SELECT * 
+		FROM VOTE_AUTH
+	    WHERE VOTE_NO=#{value}
+	</select>
+	
+	
+</mapper>

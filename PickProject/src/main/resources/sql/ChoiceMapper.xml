@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ChoiceMapper">
+
+	<resultMap id="choiceSelectMap" type="choice">
+		<result property="choiceNo" column="CHOI_NO" jdbcType="INTEGER" />
+		<result property="voteNo" column="VOTE_NO" jdbcType="INTEGER" />
+		<result property="photo" column="CHOI_PHOT" jdbcType="VARCHAR" />
+		<result property="content" column="CHOI_CONT" jdbcType="VARCHAR" />
+		<result property="choiceCount" column="CHOI_CNT" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- SQL : INSERT --> <!-- seq_product_prod_no.NEXTVAL --> <!-- #{ssn:VARCHAR} , -->
+	<insert id="addChoice" parameterType="choice" useGeneratedKeys="true"
+		keyProperty="choiceNo" keyColumn="CHOI_NO">
+		INSERT
+		INTO CHOI( VOTE_NO , CHOI_PHOT, CHOI_CONT, CHOI_CNT )
+		VALUES
+		(#{voteNo:INTEGER},
+		#{photo:VARCHAR},
+		#{content:VARCHAR},
+		#{choiceCount:INTEGER})
+		<selectKey keyProperty="choiceNo" resultType="Integer"
+			order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	<select id="getChoiceListByVoteNo" parameterType="int"
+		resultMap="choiceSelectMap">
+		SELECT
+		CHOI_NO, VOTE_NO, CHOI_PHOT, CHOI_CONT, CHOI_CNT
+		FROM CHOI
+		WHERE VOTE_NO = #{voteNo}
+	</select>
+
+	<select id="getChoiceByChoiceNo" parameterType="int" resultMap="choiceSelectMap">
+		SELECT
+		CHOI_NO, VOTE_NO, CHOI_PHOT, CHOI_CONT, CHOI_CNT
+		FROM CHOI
+		WHERE CHOI_NO = #{choiceNo}
+	</select>
+
+
+
+	<!-- SQL : UPDATE -->
+	<update id="updateChoiceCount" parameterType="choice">
+		UPDATE CHOI
+		<set>
+			CHOI_CNT = #{choiceCount}
+		</set>
+		WHERE CHOI_NO = #{choiceNo}
+	</update>
+
+
+</mapper>

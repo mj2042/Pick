@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ 					
+<mapper namespace="InterestMapper">
+
+	<resultMap type="interest" id="interestSelectMap">
+		<result property="interestNo" column="INTR_NO" jdbcType="INTEGER"/>
+		<result property="content" column="INTR_CONT" jdbcType="VARCHAR"/>
+		<result property="interestPhoto" column="INTR_PHOT" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	
+	<insert id="addInterest" parameterType="interest">
+		INSERT
+		INTO INTR(INTR_CONT,INTR_PHOT)
+		VALUES (#{content:VARCHAR},
+				#{interestPhoto:VARCHAR})
+	</insert>
+	
+	
+	<select id="getInterestByContent" parameterType="string" resultMap="interestSelectMap">
+		SELECT *
+		FROM INTR
+		WHERE INTR_CONT=#{value}
+	</select>
+	
+	<select id="getInterestByInterestNo" parameterType="Integer" resultMap="interestSelectMap">
+		SELECT *
+		FROM INTR
+		WHERE INTR_NO=#{value}
+	</select>
+	
+	
+	
+	<select id="getInterestList" resultMap="interestSelectMap">
+		SELECT *
+		FROM INTR
+	</select>
+	
+	
+	<select id="getInterestListByUserNo" parameterType="Integer" resultMap="interestSelectMap" >
+		SELECT i.* 
+		FROM USERS u,USER_INTR ui, INTR i
+		WHERE u.USER_NO=ui.USER_NO AND ui.INTR_NO = i.INTR_NO AND u.USER_NO=#{value}
+
+	</select>
+	
+	
+	
+</mapper>

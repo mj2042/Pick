@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+								 http://www.springframework.org/schema/beans/spring-beans.xsd
+								 http://www.springframework.org/schema/context
+								 http://www.springframework.org/schema/context/spring-context.xsd
+								 http://www.springframework.org/schema/mvc
+								http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="com.bitcamp.pick">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+	</context:component-scan>
+
+
+	<!-- ■ DefaultAnnotationHandlerMapping 설정 등 기타 Annotation 기반 모든 기능을 사용 할 
+		수 있는 아래의 설정으로 변경 -->
+	<mvc:annotation-driven />
+
+
+<!--리소스의 경우 제외  -->
+  <mvc:default-servlet-handler />  
+
+	<!-- Default ViewResolver로 jsp, html 파일을 직접 반환한다. -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
+
+<!-- 	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.NullPointerException">/common/nullError.jsp</prop>
+				<prop key="java.lang.NumberFormatException">/common/numberFormatError.jsp</prop>
+
+			</props>
+		</property>
+		<property name="defaultErrorView" value="/common/error.jsp" />
+	</bean> -->
+
+
+
+
+	 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<!-- max upload size in bytes -->
+		 <property name="maxUploadSize" value="20971520" /> <!-- //20MB max size of file in memory (in bytes)  -->
+		 <property name="maxInMemorySize"  value="1048576" /><!--  //1MB  -->
+	</bean> 
+
+	
+	<!--mappingJacksonHttpMessageConverter는 @ResponseBody, @RequestBody 어노테이션 사용시 
+		JSON Object를 javaClass(get, set)에 자동으로 맵핑이 되도록 변환을 해주는 라이브러리다.  -->
+ 	 <!-- /////// Client 에서 전달되는 JSON Data 를 Domain Object 롤 변환 받기위한 설정 ///////-->
+ 	<bean id="jsonConverter"	class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
+	
+	
+	 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonConverter" /> 
+			</list>
+		</property>	 
+	 </bean>  
+	 
+	 
+
+
+
+</beans>

@@ -1,0 +1,16 @@
+{
+  "name": "close",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "fojo3y3ju5f4vge0bepcxl1mgmzgit9k",
+      "css": "export-1",
+      "code": 59395,
+      "src": "modernpics"
+    }
+  ]
+}
