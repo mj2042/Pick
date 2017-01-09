@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VoteMapper">
+
+	<resultMap id="voteSelectMap" type="vote">
+		<result property="voteNo" column="VOTE_NO" jdbcType="INTEGER" />
+		<result property="userNo" column="USER_NO" jdbcType="INTEGER" />
+		<result property="voteCategory" column="VOTE_CATG" jdbcType="VARCHAR" />
+		<result property="voteTitle" column="VOTE_TITL" jdbcType="VARCHAR" />
+		<result property="voteContent" column="VOTE_CONT" jdbcType="VARCHAR" />
+		<result property="voteHits" column="VOTE_HITS" jdbcType="INTEGER" />
+		<result property="endDate" column="END_DATE" jdbcType="DATE" />
+		<result property="voteType" column="VOTE_TYPE" jdbcType="VARCHAR" />
+		<result property="voteMax" column="VOTE_MAX" jdbcType="INTEGER" />
+		<association property="voteAuthority" column="VOTE_NO"
+			select="VoteAuthorityMapper.getVoteAuthority" javaType="voteAuthority" />
+		<collection property="choiceList" column="VOTE_NO"
+			select="ChoiceMapper.getChoiceListByVoteNo" ofType="choice" javaType="ArrayList" />
+	</resultMap>
+
+
+
+	<!-- SQL : INSERT -->
+	<insert id="addVote" parameterType="vote" useGeneratedKeys="true"
+		keyProperty="voteNo" keyColumn="VOTE_NO">
+		INSERT
+		INTO VOTE(USER_NO , VOTE_CATG , VOTE_TITL , VOTE_CONT,
+		VOTE_HITS, END_DATE, VOTE_TYPE , VOTE_MAX)
+		VALUES ( #{userNo:INTEGER},
+		#{voteCategory:VARCHAR},
+		#{voteTitle:VARCHAR},
+		#{voteContent:VARCHAR},
+		#{voteHits:INTEGER},
+		#{endDate:DATE},
+		#{voteType:VARCHAR},
+		#{voteMax:INTEGER} )
+		<selectKey keyProperty="voteNo" resultType="Integer" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+
+	<select id="getVote" parameterType="int" resultMap="voteSelectMap">
+		SELECT
+		VOTE_NO , USER_NO , VOTE_CATG, VOTE_TITL, VOTE_CONT, VOTE_HITS,
+		END_DATE, VOTE_TYPE, VOTE_MAX
+		FROM VOTE
+		WHERE VOTE_NO = #{voteNo}
+	</select>
+
+
+	<select id="getVoteList" resultMap="voteSelectMap">
+		SELECT *
+		FROM VOTE
+	</select>
+	
+	
+	<select id="getMyVoteList" resultMap="voteSelectMap">
+		SELECT *
+		FROM VOTE
+		WHERE USER_NO = #{value}
+	</select>
+
+
+	<select id="getVoteListByUserNo" parameterType="int" resultMap="voteSelectMap">
+		SELECT DISTINCT v.*
+		FROM CHOI c,choi_user cu ,vote v
+		WHERE c.CHOI_NO=cu.CHOI_NO
+		AND v.VOTE_NO=c.VOTE_NO
+		AND cu.USER_NO=#{voteNo}
+	</select>
+
+
+
+	<select id="search" parameterType="string" resultMap="voteSelectMap">
+		SELECT *
+		FROM VOTE
+		WHERE VOTE_CATG LIKE CONCAT('%',#{word},'%') OR
+		VOTE_TITL LIKE CONCAT('%',#{word},'%') OR
+		VOTE_CONT LIKE CONCAT('%',#{word},'%') OR
+		VOTE_TYPE LIKE CONCAT('%',#{word},'%')
+	</select>
+
+
+	<select id="filter" parameterType="map" resultMap="voteSelectMap">
+		SELECT V.*
+		FROM VOTE_AUTH VA,VOTE V
+		WHERE VA.VOTE_NO = V.VOTE_NO
+		AND ( VA.MALE=#{voteA​uthority.male}
+		OR VA.F_MALE=#{voteA​uthority.female})
+		AND
+		 ( VA.ONE=#{voteA​uthority.one}
+		OR VA.TWO=#{voteA​uthority.two}
+		OR VA.THRE=#{voteA​uthority.three}
+		OR VA.FOUR=#{voteA​uthority.four}
+		OR VA.FIVE=#{voteA​uthority.five}
+		OR VA.SIX=#{voteA​uthority.six})
+		
+		<if test="interestList != null">
+			<foreach collection="interestList" item="interest" open=" AND ("
+				close=")" separator="or">
+				V.VOTE_CATG = #{interest.content}
+			</foreach>
+		</if>
+	</select>
+
+
+
+</mapper>

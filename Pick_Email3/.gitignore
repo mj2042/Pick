@@ -1,0 +1,9 @@
+#.gitignore
+/.gradle/
+/bin/
+/.settings/
+/build/
+/.classpath
+/.project
+/.tern-project
+node_modules/

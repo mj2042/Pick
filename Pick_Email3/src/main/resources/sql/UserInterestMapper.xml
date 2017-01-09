@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="UserInterestMapper">
+
+
+	<insert id="addUserInterest" parameterType="hashmap">
+		INSERT
+		INTO USER_INTR(USER_NO,INTR_NO)
+		VALUES (#{userNo:INTEGER},
+				#{interestNo:INTEGER})
+	</insert>
+	<delete id="deleteUserInterest" parameterType="integer">
+			DELETE 
+			FROM USER_INTR
+			WHERE USER_NO = #{value}
+	</delete>
+	
+	
+
+</mapper>

@@ -1,0 +1,14 @@
+.custom-nav{
+	background-color: #ED2553;
+/* 	z-index:2;
+	position: fixed;
+	top:0px; */
+}
+#register_btn{
+	background-color: #ED2553;
+}
+/* sweetalert custom */
+h2 {
+  font-size: 15px !important;
+
+}

@@ -1,0 +1,209 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+
+#voteTitle{
+	font-family: 'Hanna', serif !important;
+	
+}
+#voteContent{
+	font-family: 'Hanna', serif !important;
+	
+}
+/*그래프 */
+path {
+	stroke: #fff;
+}
+
+path:hover {
+	opacity: 0.9;
+}
+
+rect:hover {
+	fill: #D9F3F2;
+}
+
+.axis {
+	font: 10px sans-serif;
+}
+
+.legend tr {
+	border-bottom: 1px solid grey;
+}
+
+.legend tr:first-child {
+	border-top: 1px solid grey;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.x.axis path {
+	display: none;
+}
+
+.legend {
+	margin-left: 30px;
+	display: inline-block;
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.legend td {
+	padding: 4px 5px;
+	vertical-align: bottom;
+}
+
+.legendFreq, .legendPerc {
+	align: right;
+	width: 50px;
+}
+
+.custom-nav {
+	background-color: #ED2553;
+}
+
+#age_pie {
+	position: relative;
+	top: -150px;
+	left: 240px;
+}
+
+#gender_pie {
+	position: relative;
+	    top: -150px;
+    left: 110px;
+}
+
+#gender_legend {
+	position: relative;
+	top: -60px;
+    left: 50px;
+	width: 200px !important;
+}
+
+#age_legend {
+	position: relative;
+	top: 60px;
+    left: -90px;
+	width: 200px !important;
+}
+
+#dashboard {
+	height: 370px;
+}
+
+#histogram {
+	top: -45px;
+	left: 160px;
+	position: relative;
+}
+
+/**/
+/*comment  */
+.detailBox {
+	width:620px;
+	border-top: 1px solid #bbb;
+	border-bottom: 1px solid #bbb;
+	margin: 15px;
+	margin-top: 30px;
+}
+
+.titleBox {
+	background-color: #fdfdfd;
+	padding: 10px;
+}
+
+.titleBox label {
+	color: #444;
+	margin: 0;
+	display: inline-block;
+}
+
+.actionBox .form-group * {
+	width: 100%;
+}
+
+.taskDescription {
+	margin-top: 10px 0;
+}
+
+.commentList {
+	padding: 0;
+	list-style: none;
+	max-height: 300px;
+	overflow: auto;
+	margin-left: 5px;
+}
+
+.commentList li {
+	margin: 0;
+	margin-top: 10px;
+	padding-left: 10px;
+}
+
+.commentList li>div {
+	display: table-cell;
+}
+
+.commenterImage {
+	width: 30px;
+	margin-right: 5px;
+	float: left;
+}
+
+.commenterImage img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+
+.commentText p {
+	margin: 0;
+}
+
+.sub-text {
+	color: #aaa;
+	font-family: verdana;
+	font-size: 11px;
+}
+
+.actionBox {
+	border-top: 1px dotted #bbb;
+}
+
+.commentText {
+	padding-left: 10px;
+}
+
+#add_comment_btn {
+	position: relative;
+	top: 20px;
+	left: -15px;
+	background-color: #ED2553;
+}
+#toast-container {
+  top: auto !important;
+  right: 1%;
+  bottom: 7%;
+  left:auto !important;
+}
+
+
+.delete_btn_custom{
+	cursor: pointer;
+}
+
+/*툴팁  */
+.backdrop{
+       background-color:#ED2553  !important;
+}
+
+
+/*  */
